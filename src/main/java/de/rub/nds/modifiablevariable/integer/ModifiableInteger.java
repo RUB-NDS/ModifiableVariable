@@ -8,6 +8,7 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import de.rub.nds.modifiablevariable.CustomModification;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlSeeAlso({ IntegerAddModification.class, IntegerExplicitValueModification.class, IntegerSubtractModification.class,
-        IntegerXorModification.class })
+        IntegerXorModification.class, CustomModification.class })
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableInteger extends ModifiableVariable<Integer> implements Serializable {
 

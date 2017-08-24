@@ -8,6 +8,7 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import de.rub.nds.modifiablevariable.CustomModification;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -23,7 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlSeeAlso({ BigIntegerAddModification.class, BigIntegerExplicitValueModification.class,
-        BigIntegerSubtractModification.class, BigIntegerXorModification.class })
+        BigIntegerSubtractModification.class, BigIntegerXorModification.class, VariableModification.class,
+        CustomModification.class })
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableBigInteger extends ModifiableVariable<BigInteger> implements Serializable {
 

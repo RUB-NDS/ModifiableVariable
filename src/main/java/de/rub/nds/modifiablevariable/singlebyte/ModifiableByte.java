@@ -8,6 +8,7 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
+import de.rub.nds.modifiablevariable.CustomModification;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlSeeAlso({ ByteAddModification.class, ByteExplicitValueModification.class, ByteSubtractModification.class,
-        ByteXorModification.class })
+        ByteXorModification.class, CustomModification.class })
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableByte extends ModifiableVariable<Byte> implements Serializable {
 

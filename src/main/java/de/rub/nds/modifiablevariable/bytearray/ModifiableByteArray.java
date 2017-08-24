@@ -8,6 +8,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import de.rub.nds.modifiablevariable.CustomModification;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -26,7 +27,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlRootElement
 @XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
-        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class })
+        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class,
+        CustomModification.class })
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
