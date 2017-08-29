@@ -1,5 +1,6 @@
 package de.rub.nds.modifiablevariable.util;
 
+import de.rub.nds.modifiablevariable.CustomModification;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
@@ -16,6 +17,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 
 import java.math.BigInteger;
+import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class Modifiable {
@@ -175,6 +177,26 @@ public class Modifiable {
 
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
+    }
+
+    public static ModifiableByteArray customByteArray(String description, Function<byte[], byte[]> function) {
+        return getModifiableByteArrayWithModification(new CustomModification<>(description, function));
+    }
+
+    public static ModifiableByte customByte(String description, Function<Byte, Byte> function) {
+        return getModifiableByteWithModification(new CustomModification<>(description, function));
+    }
+
+    public static ModifiableInteger customInteger(String description, Function<Integer, Integer> function) {
+        return getModifiableIntegerWithModification(new CustomModification<>(description, function));
+    }
+
+    public static ModifiableBigInteger customBigInteger(String description, Function<BigInteger, BigInteger> function) {
+        return getModifiableBigIntegerWithModification(new CustomModification<>(description, function));
+    }
+
+    public static ModifiableLong customLong(String description, Function<Long, Long> function) {
+        return getModifiableLongWithModification(new CustomModification<>(description, function));
     }
 
 }
