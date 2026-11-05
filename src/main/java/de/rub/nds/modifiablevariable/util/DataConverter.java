@@ -29,6 +29,8 @@ import java.util.List;
  */
 public final class DataConverter {
 
+    private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
+
     /** Private constructor to prevent instantiation of this utility class. */
     private DataConverter() {
         super();
@@ -313,7 +315,7 @@ public final class DataConverter {
         if (array == null) {
             throw new IllegalArgumentException("Input byte array must not be null");
         }
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(array.length * (usePrettyPrinting ? 4 : 3) + 1);
         if (initialNewLine && usePrettyPrinting) {
             result.append("\n");
         }
@@ -328,8 +330,7 @@ public final class DataConverter {
                     result.append(" ");
                 }
             }
-            byte b = array[i];
-            result.append(String.format("%02X", b));
+            appendHex(result, array[i]);
         }
         return result.toString();
     }
@@ -422,11 +423,15 @@ public final class DataConverter {
         if (array == null) {
             throw new IllegalArgumentException("Input byte array must not be null");
         }
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(array.length * 2);
         for (byte b : array) {
-            result.append(String.format("%02X", b));
+            appendHex(result, b);
         }
         return result.toString();
+    }
+
+    private static void appendHex(StringBuilder sb, byte b) {
+        sb.append(HEX_DIGITS[(b >> 4) & 0x0F]).append(HEX_DIGITS[b & 0x0F]);
     }
 
     /**
