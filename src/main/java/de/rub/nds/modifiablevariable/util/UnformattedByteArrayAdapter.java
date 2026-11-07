@@ -60,8 +60,7 @@ public class UnformattedByteArrayAdapter extends XmlAdapter<String, byte[]> {
      */
     @Override
     public byte[] unmarshal(String value) {
-        value = value.replaceAll("\\s", "");
-        return DataConverter.hexStringToByteArray(value);
+        return DataConverter.hexStringToByteArray(removeWhitespace(value));
     }
 
     /**
@@ -76,5 +75,24 @@ public class UnformattedByteArrayAdapter extends XmlAdapter<String, byte[]> {
     @Override
     public String marshal(byte[] value) {
         return DataConverter.bytesToHexString(value, false, false);
+    }
+
+    /** Same as {@code value.replaceAll("\\s", "")}, without compiling a pattern per call. */
+    private static String removeWhitespace(String value) {
+        StringBuilder builder = null;
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+            boolean whitespace =
+                    c == ' ' || c == '\t' || c == '\n' || c == '\u000B' || c == '\f' || c == '\r';
+            if (whitespace) {
+                if (builder == null) {
+                    builder = new StringBuilder(value.length());
+                    builder.append(value, 0, i);
+                }
+            } else if (builder != null) {
+                builder.append(c);
+            }
+        }
+        return builder == null ? value : builder.toString();
     }
 }
