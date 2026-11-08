@@ -699,13 +699,12 @@ public final class DataConverter {
             numByteBlocks = output.length;
         }
 
-        int i;
-        for (i = 0; i < numByteBlocks; i++) {
-            output[output.length - 1 - i] = input.shiftRight(i * 8).byteValue();
-        }
-        if (remainingBits > 0) {
-            output[output.length - 1 - i] = input.shiftRight(i * 8).byteValue();
-        }
+        int written = remainingBits > 0 ? numByteBlocks + 1 : numByteBlocks;
+        // byte i of the result from the end is input.shiftRight(i * 8).byteValue(), which is byte i
+        // from the end of the two's complement encoding (at least bitLength / 8 + 1 bytes long)
+        byte[] encoded = input.toByteArray();
+        System.arraycopy(
+                encoded, encoded.length - written, output, output.length - written, written);
         return output;
     }
 
