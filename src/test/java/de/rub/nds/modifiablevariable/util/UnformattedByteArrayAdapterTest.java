@@ -77,4 +77,34 @@ class UnformattedByteArrayAdapterTest {
 
         assertArrayEquals(expected, adapter.unmarshal(input));
     }
+
+    @Test
+    void testUnmarshalStripsWhitespaceLikeRegex() {
+        java.util.Random random = new java.util.Random(7);
+        char[] alphabet = {
+            '0', 'a', 'F', ' ', '\t', '\n', '\u000B', '\f', '\r', '\u00A0', '\u2028'
+        };
+        for (int n = 0; n < 2000; n++) {
+            StringBuilder raw = new StringBuilder();
+            int length = random.nextInt(40);
+            for (int i = 0; i < length; i++) {
+                char c = alphabet[random.nextInt(alphabet.length)];
+                raw.append(c);
+            }
+            String expectedInput = raw.toString().replaceAll("\\s", "");
+            byte[] expected;
+            try {
+                expected = DataConverter.hexStringToByteArray(expectedInput);
+            } catch (RuntimeException e) {
+                expected = null;
+            }
+            byte[] actual;
+            try {
+                actual = adapter.unmarshal(raw.toString());
+            } catch (RuntimeException e) {
+                actual = null;
+            }
+            assertArrayEquals(expected, actual, raw.toString());
+        }
+    }
 }
