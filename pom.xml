@@ -65,7 +65,7 @@
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
         <skip.failsafe.tests>${skipTests}</skip.failsafe.tests>
         <!-- Jackson 3 is required by victools jsonschema-generator 5 -->
-        <deps.jackson3.version>3.2.4</deps.jackson3.version>
+        <deps.jackson3.version>3.3.0</deps.jackson3.version>
     </properties>
 
     <dependencies>
